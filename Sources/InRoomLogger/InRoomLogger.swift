@@ -11,12 +11,15 @@ import BwLogger
 import BwNearPeer
 
 public class InRoomLogger {
-    public init() {}
+    let nearPeerNotifier: NearPeerNotifier
+
+    public init() {
+        nearPeerNotifier = NearPeerNotifier()
+    }
 }
 
 extension InRoomLogger: LogOutput {
     public func log(_ information: LogInformation) {
-
-        
+        nearPeerNotifier.send(log: information)
     }
 }
