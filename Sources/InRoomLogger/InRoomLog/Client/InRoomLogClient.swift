@@ -5,7 +5,6 @@
 //  Created by Katsuhiko Terada on 2022/08/11.
 //
 
-import BwLogger
 import BwNearPeer
 import Combine
 import Foundation
@@ -13,7 +12,7 @@ import Foundation
     import UIKit.UIDevice
 #endif
 
-protocol NearPeerNotifierDependency {
+public protocol InRoomLogClientDependency {
     /// InfoPlistに記述が必要
     var serviceType: String { get }
 
@@ -28,19 +27,10 @@ protocol NearPeerNotifierDependency {
     var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
 }
 
-struct NearPeerNotifierResolver: NearPeerNotifierDependency {
-    var serviceType: String { Const.serviceType }
-    var appName: String { InfoPlistKeys.displayName.getAsString() ?? "" }
-    var identifier: String { UserDefaults.myIdentifier }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.loggerIdentifier, .passcode: Const.passcode] }
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.monitorIdentifier, .passcode: Const.passcode] }
-}
-
-public class NearPeerNotifier: ObservableObject {
+public class InRoomLogClient: ObservableObject {
     var peerNames: [PeerIdentifier] = []
 
-    private var dependency: NearPeerNotifierDependency = NearPeerNotifierResolver()
+    private var dependency: InRoomLogClientDependency
     private let nearPeer: NearPeer
 
     /// 複数の「しるドアモニター」の識別子を格納する
@@ -48,7 +38,9 @@ public class NearPeerNotifier: ObservableObject {
 
     private var sendCounter: Int = 0
 
-    public init() {
+    public init(dependency: InRoomLogClientDependency) {
+        self.dependency = dependency
+
         // 一度に接続できる「しるドアモニター」は１つだけ
         nearPeer = NearPeer(maxPeers: 1)
 

@@ -1,5 +1,5 @@
 //
-//  InRoomLogger.swift
+//  InRoomLogOutput.swift
 //  InRoomLogger
 //
 //  Created by k2moons on 2022/10/27.
@@ -7,19 +7,18 @@
 //
 
 import Foundation
-import BwLogger
 import BwNearPeer
 
-public class InRoomLogger {
-    let nearPeerNotifier: NearPeerNotifier
+public class InRoomLogOutput {
+    let client: InRoomLogClient
 
     public init() {
-        nearPeerNotifier = NearPeerNotifier()
+        client = InRoomLogClient(dependency: InRoomLogClientResolver())
     }
 }
 
-extension InRoomLogger: LogOutput {
+extension InRoomLogOutput: LogOutput {
     public func log(_ information: LogInformation) {
-        nearPeerNotifier.send(log: information)
+        client.send(log: information)
     }
 }

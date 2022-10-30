@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol UUIDIdentifiable: Equatable {
+protocol UUIDIdentifiable: Equatable {
     var id: UUID { get }
 }
