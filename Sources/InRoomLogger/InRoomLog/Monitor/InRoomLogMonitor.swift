@@ -38,19 +38,19 @@ struct InRoomLogMonitorResolver: InRoomLogMonitorDependency {
 
 @available(iOS 13.0, *)
 public class InRoomLogMonitor: ObservableObject {
-    @Published var peerNames: [PeerIdentifier] = []
-    @Published var data: Data?
+    @Published public var peerNames: [PeerIdentifier] = []
+    @Published public var logHistory: [LogInformation] = []
 
     private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
     private let nearPeer: NearPeer
 
-    /// 複数の「しるドア」の識別子を格納する
+    /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
 
     private var sendCounter: Int = 0
 
     public init() {
-        // 一度に接続できる「しるドアモニター」は１つだけ
+        // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
     }
 
@@ -93,7 +93,7 @@ public class InRoomLogMonitor: ObservableObject {
             }
         }
 
-        nearPeer.onReceived { _, data in
+        nearPeer.onReceived { peer, data in
             Task {
                 await MainActor.run {
                     print("🟢 [MON] Received")
@@ -102,11 +102,11 @@ public class InRoomLogMonitor: ObservableObject {
                         print("データがありません")
                         return
                     }
-                    
-                    self.data = data
 
                     if let content = try? JSONDecoder().decode(LogInformation.self, from: data) {
+                        self.logHistory.append(content)
                         print(content)
+
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {
                         print(text)
                     } else {
@@ -127,9 +127,5 @@ public class InRoomLogMonitor: ObservableObject {
 
     public func suspend() {
         nearPeer.suspend()
-    }
-
-    public func send(text: String) {
-
     }
 }
