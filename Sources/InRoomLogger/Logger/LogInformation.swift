@@ -72,7 +72,7 @@ open class LogInformation: Codable {
     }
 
     /// タイムスタンプを生成
-    func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
+    public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
         date.string(dateFormat: format, timeZone: .current)
     }
 
