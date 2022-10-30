@@ -36,10 +36,28 @@ struct InRoomLogMonitorResolver: InRoomLogMonitorDependency {
     var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { nil }
 }
 
+public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
+    public static func == (lhs: LogInformationIdentified, rhs: LogInformationIdentified) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    public let id: UUID
+
+    public override init(_ log: LogInformation) {
+        id = UUID()
+        
+        super.init(log)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+}
+
 @available(iOS 13.0, *)
 public class InRoomLogMonitor: ObservableObject {
     @Published public var peerNames: [PeerIdentifier] = []
-    @Published public var logHistory: [LogInformation] = []
+    @Published public var logHistory: [LogInformationIdentified] = []
 
     private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
     private let nearPeer: NearPeer
@@ -104,7 +122,7 @@ public class InRoomLogMonitor: ObservableObject {
                     }
 
                     if let content = try? JSONDecoder().decode(LogInformation.self, from: data) {
-                        self.logHistory.append(content)
+                        self.logHistory.append(LogInformationIdentified(content))
                         print(content)
 
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {

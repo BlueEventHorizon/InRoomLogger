@@ -13,7 +13,7 @@ import Foundation
 // ------------------------------------------------------------------------------------------
 
 /// Logの基本情報を保持する構造体
-public struct LogInformation: Codable {
+open class LogInformation: Codable {
     public enum Level: String, Codable, CaseIterable {
         case log
         case debug
@@ -58,6 +58,17 @@ public struct LogInformation: Codable {
         } else {
             objectName = "\(function)"
         }
+    }
+    
+    public init(_ log: LogInformation) {
+        self.message = log.message
+        self.level = log.level
+        self.date = log.date
+        self.objectName = log.objectName
+        self.function = log.function
+        self.file = log.file
+        self.line = log.line
+        self.prefix = log.prefix
     }
 
     /// タイムスタンプを生成
