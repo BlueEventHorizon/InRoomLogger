@@ -21,14 +21,16 @@ struct LogMonitorApp: App {
             switch appState.viewState {
                 case .splash:
                     SplashView()
+                        .frame(width: 400, height: 300)
                         .environmentObject(appState)
 
                 case .main:
-                LogMonitorMainView()
-                    .onAppear {
-                        monitor.start()
-                    }
-                    .environmentObject(monitor)
+                    LogMonitorMainView()
+                        .frame(minWidth: 400, minHeight: 300)
+                        .onAppear {
+                            monitor.start()
+                        }
+                        .environmentObject(monitor)
             }
         }
     }
