@@ -10,7 +10,7 @@ import Foundation
 
 // https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
-public enum InfoPlistKeys: String, Codable, CaseIterable, CustomStringConvertible {
+enum InfoPlistKeys: String, Codable, CaseIterable, CustomStringConvertible {
     // Bundle Identifier
     // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
     case identifier = "CFBundleIdentifier"
@@ -156,32 +156,32 @@ public enum InfoPlistKeys: String, Codable, CaseIterable, CustomStringConvertibl
 
     // MARK: - CustomStringConvertible
 
-    public var description: String {
+    var description: String {
         rawValue
     }
 
     // MARK: - public
 
-    public func check() -> Bool {
+    func check() -> Bool {
         let result = Bundle.main.object(forInfoDictionaryKey: description)
         return result != nil
     }
 
     /// 文字列として要素を取得する
     /// - Returns: 文字列
-    public func getAsString() -> String? {
+    func getAsString() -> String? {
         let result = Bundle.main.object(forInfoDictionaryKey: description) as? String
         return result
     }
 
     /// 文字列配列として要素を取得する
-    public func getAsDictionary() -> [String: String]? {
+    func getAsDictionary() -> [String: String]? {
         let result = Bundle.main.object(forInfoDictionaryKey: description) as? [String: String]
         return result
     }
 
     /// 型推論によって要素を取得する
-    public func getValue<T>() -> T? {
+    func getValue<T>() -> T? {
         let result = Bundle.main.object(forInfoDictionaryKey: description) as? T
         // let result = InfoPlistChecker.word(for: self)
 

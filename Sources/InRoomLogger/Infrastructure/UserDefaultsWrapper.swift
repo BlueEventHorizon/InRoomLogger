@@ -15,16 +15,16 @@ typealias OptionalUserDefault = UserDefaultsWrapperOptional
 
 @propertyWrapper
 /// オプショナル型ではないUserDefaultを利用するためのpropertyWrapper
-public struct UserDefaultsWrapper<T: Codable>: UserDefaultSupportCheckable {
+struct UserDefaultsWrapper<T: Codable>: UserDefaultSupportCheckable {
     private let key: String
     private let defaultValue: T // <--- None Optional
 
-    public init(_ key: String, defaultValue: T) {
+    init(_ key: String, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
     }
 
-    public var wrappedValue: T {
+    var wrappedValue: T {
         get {
             getValue() ?? getDefaultValue()
         }
@@ -67,16 +67,16 @@ public struct UserDefaultsWrapper<T: Codable>: UserDefaultSupportCheckable {
 // MARK: - Optional
 
 @propertyWrapper
-public struct UserDefaultsWrapperOptional<T: Codable>: UserDefaultSupportCheckable {
+struct UserDefaultsWrapperOptional<T: Codable>: UserDefaultSupportCheckable {
     private let key: String
     private let defaultValue: T? // <--- Optional
 
-    public init(_ key: String, defaultValue: T? = nil) {
+    init(_ key: String, defaultValue: T? = nil) {
         self.key = key
         self.defaultValue = defaultValue
     }
 
-    public var wrappedValue: T? {
+    var wrappedValue: T? {
         get {
             getValue() ?? getDefaultValue()
         }

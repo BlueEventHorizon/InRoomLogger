@@ -1,11 +1,10 @@
 //
-//  NearPeerNotifier.swift
+//  InRoomLogClient.swift
 //  InRoomLogger
 //
 //  Created by Katsuhiko Terada on 2022/08/11.
 //
 
-import BwLogger
 import BwNearPeer
 import Combine
 import Foundation
@@ -13,7 +12,7 @@ import Foundation
     import UIKit.UIDevice
 #endif
 
-protocol NearPeerNotifierDependency {
+public protocol InRoomLogClientDependency {
     /// InfoPlistに記述が必要
     var serviceType: String { get }
 
@@ -28,28 +27,19 @@ protocol NearPeerNotifierDependency {
     var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
 }
 
-struct NearPeerNotifierResolver: NearPeerNotifierDependency {
-    var serviceType: String { Const.serviceType }
-    var appName: String { InfoPlistKeys.displayName.getAsString() ?? "" }
-    var identifier: String { UserDefaults.myIdentifier }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.loggerIdentifier, .passcode: Const.passcode] }
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.monitorIdentifier, .passcode: Const.passcode] }
-}
-
-public class NearPeerNotifier: ObservableObject {
+public class InRoomLogClient: ObservableObject {
     var peerNames: [PeerIdentifier] = []
 
-    private var dependency: NearPeerNotifierDependency = NearPeerNotifierResolver()
+    private var dependency: InRoomLogClientDependency
     private let nearPeer: NearPeer
 
-    /// 複数の「しるドアモニター」の識別子を格納する
+    /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
 
-    private var sendCounter: Int = 0
+    public init(dependency: InRoomLogClientDependency) {
+        self.dependency = dependency
 
-    public init() {
-        // 一度に接続できる「しるドアモニター」は１つだけ
+        // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
 
         nearPeer.onConnected { peer in
@@ -102,7 +92,6 @@ public class NearPeerNotifier: ObservableObject {
     public func send(log: LogInformation) {
         if let encodedContent: Data = try? JSONEncoder().encode(log) {
             nearPeer.send(encodedContent)
-            sendCounter += 1
         } else {
             print("encode失敗")
         }

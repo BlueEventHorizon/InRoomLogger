@@ -1,6 +1,6 @@
 //
 //  TimeValueObject.swift
-//  InRoomLogger
+//  InRoomLogMonitor
 //
 //  Created by Katsuhiko Terada on 2022/08/15.
 //
