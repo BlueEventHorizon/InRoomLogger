@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct PeerIdentifier: UUIDIdentifiable {
-    let id: UUID
-    let displayName: String
+public struct PeerIdentifier: UUIDIdentifiable {
+    public let id: UUID
+    public let displayName: String
 
     init(id: UUID, displayName: String) {
         self.id = id
