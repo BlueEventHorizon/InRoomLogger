@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		76A958F8290A897100AFE6CF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A958F7290A897100AFE6CF /* AppState.swift */; };
-		76A958FD290A8DD400AFE6CF /* InRoomLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 76A958FC290A8DD400AFE6CF /* InRoomLogger */; };
 		76AF3EAD290A4A4E00C40C89 /* InRoomLogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3EAC290A4A4E00C40C89 /* InRoomLogApp.swift */; };
 		76AF3EAF290A4A4E00C40C89 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3EAE290A4A4E00C40C89 /* ContentView.swift */; };
 		76AF3EB1290A4A4E00C40C89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AF3EB0290A4A4E00C40C89 /* Assets.xcassets */; };
@@ -16,6 +15,7 @@
 		76AF3EBF290A4A4F00C40C89 /* InRoomLogAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3EBE290A4A4F00C40C89 /* InRoomLogAppTests.swift */; };
 		76AF3EC9290A4A4F00C40C89 /* InRoomLogAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3EC8290A4A4F00C40C89 /* InRoomLogAppUITests.swift */; };
 		76AF3ECB290A4A4F00C40C89 /* InRoomLogAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3ECA290A4A4F00C40C89 /* InRoomLogAppUITestsLaunchTests.swift */; };
+		76C934EA290E18AA00414D8F /* InRoomLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 76C934E9290E18AA00414D8F /* InRoomLogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		76A958EF290A816400AFE6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		76A958F7290A897100AFE6CF /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		76A958FA290A8DB900AFE6CF /* InRoomLogger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = InRoomLogger; path = ../..; sourceTree = "<group>"; };
 		76AF3EA9290A4A4E00C40C89 /* InRoomLogApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InRoomLogApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76AF3EAC290A4A4E00C40C89 /* InRoomLogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoomLogApp.swift; sourceTree = "<group>"; };
 		76AF3EAE290A4A4E00C40C89 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76A958FD290A8DD400AFE6CF /* InRoomLogger in Frameworks */,
+				76C934EA290E18AA00414D8F /* InRoomLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +87,6 @@
 		76AF3EA0290A4A4E00C40C89 = {
 			isa = PBXGroup;
 			children = (
-				76A958FA290A8DB900AFE6CF /* InRoomLogger */,
 				76AF3EAB290A4A4E00C40C89 /* InRoomLogApp */,
 				76AF3EBD290A4A4F00C40C89 /* InRoomLogAppTests */,
 				76AF3EC7290A4A4F00C40C89 /* InRoomLogAppUITests */,
@@ -163,7 +161,7 @@
 			);
 			name = InRoomLogApp;
 			packageProductDependencies = (
-				76A958FC290A8DD400AFE6CF /* InRoomLogger */,
+				76C934E9290E18AA00414D8F /* InRoomLogger */,
 			);
 			productName = InRoomLogApp;
 			productReference = 76AF3EA9290A4A4E00C40C89 /* InRoomLogApp.app */;
@@ -237,6 +235,9 @@
 				Base,
 			);
 			mainGroup = 76AF3EA0290A4A4E00C40C89;
+			packageReferences = (
+				76C934E8290E18AA00414D8F /* XCRemoteSwiftPackageReference "InRoomLogger" */,
+			);
 			productRefGroup = 76AF3EAA290A4A4E00C40C89 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -636,9 +637,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		76C934E8290E18AA00414D8F /* XCRemoteSwiftPackageReference "InRoomLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BlueEventHorizon/InRoomLogger";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		76A958FC290A8DD400AFE6CF /* InRoomLogger */ = {
+		76C934E9290E18AA00414D8F /* InRoomLogger */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 76C934E8290E18AA00414D8F /* XCRemoteSwiftPackageReference "InRoomLogger" */;
 			productName = InRoomLogger;
 		};
 /* End XCSwiftPackageProductDependency section */

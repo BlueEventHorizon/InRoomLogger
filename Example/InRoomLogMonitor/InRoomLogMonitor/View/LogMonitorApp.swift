@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import InRoomLogger
 
 @main
 struct LogMonitorApp: App {
 
 // @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @StateObject private var nearPeerMonitor: NearPeerMonitor = NearPeerMonitor()
+    @StateObject private var monitor: InRoomLogMonitor = InRoomLogMonitor()
     @StateObject private var appState = AppState.default
 
     var body: some Scene {
@@ -25,9 +26,9 @@ struct LogMonitorApp: App {
                 case .main:
                 LogMonitorMainView()
                     .onAppear {
-                        nearPeerMonitor.start()
+                        monitor.start()
                     }
-                    .environmentObject(nearPeerMonitor)
+                    .environmentObject(monitor)
             }
         }
     }

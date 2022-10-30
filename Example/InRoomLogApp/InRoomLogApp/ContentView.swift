@@ -7,15 +7,14 @@
 
 import SwiftUI
 import InRoomLogger
-import BwLogger
 
 struct ContentView: View {
-    @State var logger = Logger([InRoomLogger()])
-    
+    @State var logger = Logger()
+
     var body: some View {
         VStack {
             Button {
-                logger.log(LogInformation("送信した！"))
+                logger.debug("送信!!")
             } label: {
                 Text("送信")
             }

@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		76A958F3290A850000AFE6CF /* PeerIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A958F2290A850000AFE6CF /* PeerIdentifier.swift */; };
-		76A958F5290A855900AFE6CF /* InfoPlistKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A958F4290A855900AFE6CF /* InfoPlistKeys.swift */; };
+		760F867F290E4ED7009A735E /* InRoomLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 760F867E290E4ED7009A735E /* InRoomLogger */; };
+		760F8687290E5082009A735E /* TimeValueObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F8685290E5082009A735E /* TimeValueObject.swift */; };
+		760F8688290E5082009A735E /* String+decorate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F8686290E5082009A735E /* String+decorate.swift */; };
 		76B6C34D290923D60046C9F8 /* LogMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C34C290923D60046C9F8 /* LogMonitorApp.swift */; };
 		76B6C34F290923D60046C9F8 /* LogMonitorMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C34E290923D60046C9F8 /* LogMonitorMainView.swift */; };
 		76B6C351290923D60046C9F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76B6C350290923D60046C9F8 /* Assets.xcassets */; };
@@ -16,21 +17,9 @@
 		76B6C35F290923D70046C9F8 /* InRoomLogMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C35E290923D70046C9F8 /* InRoomLogMonitorTests.swift */; };
 		76B6C369290923D70046C9F8 /* InRoomLogMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C368290923D70046C9F8 /* InRoomLogMonitorUITests.swift */; };
 		76B6C36B290923D70046C9F8 /* InRoomLogMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C36A290923D70046C9F8 /* InRoomLogMonitorUITestsLaunchTests.swift */; };
-		76B6C379290935630046C9F8 /* BwNearPeer in Frameworks */ = {isa = PBXBuildFile; productRef = 76B6C378290935630046C9F8 /* BwNearPeer */; };
-		76B6C37F290937740046C9F8 /* BwLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 76B6C37E290937740046C9F8 /* BwLogger */; };
-		76B6C381290938290046C9F8 /* NearPeerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C380290938290046C9F8 /* NearPeerMonitor.swift */; };
-		76B6C384290938B20046C9F8 /* InfoPlistKeys in Frameworks */ = {isa = PBXBuildFile; productRef = 76B6C383290938B20046C9F8 /* InfoPlistKeys */; };
-		76B6C387290938F60046C9F8 /* UUIDIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C386290938F60046C9F8 /* UUIDIdentifiable.swift */; };
-		76B6C38A290939060046C9F8 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C388290939050046C9F8 /* UserDefaultsWrapper.swift */; };
-		76B6C38B290939060046C9F8 /* StructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C389290939060046C9F8 /* StructHolder.swift */; };
-		76B6C38D290939400046C9F8 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C38C290939400046C9F8 /* Const.swift */; };
-		76B6C391290939F80046C9F8 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C390290939F80046C9F8 /* Configuration.swift */; };
-		76B6C39329093BF60046C9F8 /* UserDefault+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39229093BF60046C9F8 /* UserDefault+Ext.swift */; };
 		76B6C397290949E30046C9F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C396290949E30046C9F8 /* AppDelegate.swift */; };
 		76B6C39A29094C700046C9F8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39929094C700046C9F8 /* AppState.swift */; };
 		76B6C39D29094D550046C9F8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39C29094D550046C9F8 /* SplashView.swift */; };
-		76B6C39F29094D860046C9F8 /* String+decorate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39E29094D860046C9F8 /* String+decorate.swift */; };
-		76B6C3A129094D8F0046C9F8 /* TimeValueObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C3A029094D8F0046C9F8 /* TimeValueObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		76A958F2290A850000AFE6CF /* PeerIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerIdentifier.swift; sourceTree = "<group>"; };
-		76A958F4290A855900AFE6CF /* InfoPlistKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPlistKeys.swift; sourceTree = "<group>"; };
+		760F867C290E4EA8009A735E /* InRoomLogger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = InRoomLogger; path = ../..; sourceTree = "<group>"; };
+		760F8685290E5082009A735E /* TimeValueObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeValueObject.swift; sourceTree = "<group>"; };
+		760F8686290E5082009A735E /* String+decorate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+decorate.swift"; sourceTree = "<group>"; };
 		76A958F6290A88BF00AFE6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		76B6C349290923D60046C9F8 /* InRoomLogMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InRoomLogMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6C34C290923D60046C9F8 /* LogMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMonitorApp.swift; sourceTree = "<group>"; };
@@ -65,18 +55,9 @@
 		76B6C364290923D70046C9F8 /* InRoomLogMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InRoomLogMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6C368290923D70046C9F8 /* InRoomLogMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoomLogMonitorUITests.swift; sourceTree = "<group>"; };
 		76B6C36A290923D70046C9F8 /* InRoomLogMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoomLogMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		76B6C380290938290046C9F8 /* NearPeerMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearPeerMonitor.swift; sourceTree = "<group>"; };
-		76B6C386290938F60046C9F8 /* UUIDIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDIdentifiable.swift; sourceTree = "<group>"; };
-		76B6C388290939050046C9F8 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
-		76B6C389290939060046C9F8 /* StructHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructHolder.swift; sourceTree = "<group>"; };
-		76B6C38C290939400046C9F8 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
-		76B6C390290939F80046C9F8 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		76B6C39229093BF60046C9F8 /* UserDefault+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefault+Ext.swift"; sourceTree = "<group>"; };
 		76B6C396290949E30046C9F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76B6C39929094C700046C9F8 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		76B6C39C29094D550046C9F8 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		76B6C39E29094D860046C9F8 /* String+decorate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+decorate.swift"; sourceTree = "<group>"; };
-		76B6C3A029094D8F0046C9F8 /* TimeValueObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeValueObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76B6C379290935630046C9F8 /* BwNearPeer in Frameworks */,
-				76B6C384290938B20046C9F8 /* InfoPlistKeys in Frameworks */,
-				76B6C37F290937740046C9F8 /* BwLogger in Frameworks */,
+				760F867F290E4ED7009A735E /* InRoomLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,9 +86,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		760F8684290E5082009A735E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				760F8685290E5082009A735E /* TimeValueObject.swift */,
+				760F8686290E5082009A735E /* String+decorate.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		76B6C340290923D60046C9F8 = {
 			isa = PBXGroup;
 			children = (
+				760F867C290E4EA8009A735E /* InRoomLogger */,
 				76B6C34B290923D60046C9F8 /* InRoomLogMonitor */,
 				76B6C35D290923D70046C9F8 /* InRoomLogMonitorTests */,
 				76B6C367290923D70046C9F8 /* InRoomLogMonitorUITests */,
@@ -131,12 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				76A958F6290A88BF00AFE6CF /* Info.plist */,
-				76B6C38F290939DE0046C9F8 /* Common */,
+				760F8684290E5082009A735E /* Infrastructure */,
 				76B6C39B29094D3D0046C9F8 /* View */,
 				76B6C396290949E30046C9F8 /* AppDelegate.swift */,
 				76B6C39929094C700046C9F8 /* AppState.swift */,
-				76B6C38E2909394A0046C9F8 /* Domain */,
-				76B6C385290938D50046C9F8 /* Infrastructure */,
 				76B6C350290923D60046C9F8 /* Assets.xcassets */,
 				76B6C352290923D60046C9F8 /* InRoomLogMonitor.entitlements */,
 				76B6C353290923D60046C9F8 /* Preview Content */,
@@ -169,38 +156,6 @@
 			path = InRoomLogMonitorUITests;
 			sourceTree = "<group>";
 		};
-		76B6C385290938D50046C9F8 /* Infrastructure */ = {
-			isa = PBXGroup;
-			children = (
-				76A958F4290A855900AFE6CF /* InfoPlistKeys.swift */,
-				76B6C39E29094D860046C9F8 /* String+decorate.swift */,
-				76B6C3A029094D8F0046C9F8 /* TimeValueObject.swift */,
-				76B6C389290939060046C9F8 /* StructHolder.swift */,
-				76B6C388290939050046C9F8 /* UserDefaultsWrapper.swift */,
-				76B6C386290938F60046C9F8 /* UUIDIdentifiable.swift */,
-			);
-			path = Infrastructure;
-			sourceTree = "<group>";
-		};
-		76B6C38E2909394A0046C9F8 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				76B6C380290938290046C9F8 /* NearPeerMonitor.swift */,
-				76A958F2290A850000AFE6CF /* PeerIdentifier.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		76B6C38F290939DE0046C9F8 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				76B6C39229093BF60046C9F8 /* UserDefault+Ext.swift */,
-				76B6C38C290939400046C9F8 /* Const.swift */,
-				76B6C390290939F80046C9F8 /* Configuration.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		76B6C39B29094D3D0046C9F8 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,9 +183,7 @@
 			);
 			name = InRoomLogMonitor;
 			packageProductDependencies = (
-				76B6C378290935630046C9F8 /* BwNearPeer */,
-				76B6C37E290937740046C9F8 /* BwLogger */,
-				76B6C383290938B20046C9F8 /* InfoPlistKeys */,
+				760F867E290E4ED7009A735E /* InRoomLogger */,
 			);
 			productName = InRoomLogMonitor;
 			productReference = 76B6C349290923D60046C9F8 /* InRoomLogMonitor.app */;
@@ -305,9 +258,7 @@
 			);
 			mainGroup = 76B6C340290923D60046C9F8;
 			packageReferences = (
-				76B6C377290935630046C9F8 /* XCRemoteSwiftPackageReference "BwNearPeer" */,
-				76B6C37D290937740046C9F8 /* XCRemoteSwiftPackageReference "BwLogger" */,
-				76B6C382290938B20046C9F8 /* XCRemoteSwiftPackageReference "InfoPlistKeys" */,
+				760F867D290E4ED7009A735E /* XCRemoteSwiftPackageReference "InRoomLogger" */,
 			);
 			productRefGroup = 76B6C34A290923D60046C9F8 /* Products */;
 			projectDirPath = "";
@@ -351,22 +302,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76B6C387290938F60046C9F8 /* UUIDIdentifiable.swift in Sources */,
-				76B6C38A290939060046C9F8 /* UserDefaultsWrapper.swift in Sources */,
-				76A958F5290A855900AFE6CF /* InfoPlistKeys.swift in Sources */,
-				76B6C381290938290046C9F8 /* NearPeerMonitor.swift in Sources */,
 				76B6C34F290923D60046C9F8 /* LogMonitorMainView.swift in Sources */,
-				76B6C38B290939060046C9F8 /* StructHolder.swift in Sources */,
-				76B6C39F29094D860046C9F8 /* String+decorate.swift in Sources */,
 				76B6C39D29094D550046C9F8 /* SplashView.swift in Sources */,
 				76B6C34D290923D60046C9F8 /* LogMonitorApp.swift in Sources */,
+				760F8687290E5082009A735E /* TimeValueObject.swift in Sources */,
+				760F8688290E5082009A735E /* String+decorate.swift in Sources */,
 				76B6C39A29094C700046C9F8 /* AppState.swift in Sources */,
-				76B6C3A129094D8F0046C9F8 /* TimeValueObject.swift in Sources */,
-				76B6C39329093BF60046C9F8 /* UserDefault+Ext.swift in Sources */,
-				76B6C391290939F80046C9F8 /* Configuration.swift in Sources */,
-				76A958F3290A850000AFE6CF /* PeerIdentifier.swift in Sources */,
 				76B6C397290949E30046C9F8 /* AppDelegate.swift in Sources */,
-				76B6C38D290939400046C9F8 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,47 +664,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		76B6C377290935630046C9F8 /* XCRemoteSwiftPackageReference "BwNearPeer" */ = {
+		760F867D290E4ED7009A735E /* XCRemoteSwiftPackageReference "InRoomLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/BlueEventHorizon/BwNearPeer";
+			repositoryURL = "https://github.com/BlueEventHorizon/InRoomLogger";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		76B6C37D290937740046C9F8 /* XCRemoteSwiftPackageReference "BwLogger" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/BlueEventHorizon/BwLogger";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		76B6C382290938B20046C9F8 /* XCRemoteSwiftPackageReference "InfoPlistKeys" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/BlueEventHorizon/InfoPlistKeys";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = develop;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		76B6C378290935630046C9F8 /* BwNearPeer */ = {
+		760F867E290E4ED7009A735E /* InRoomLogger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 76B6C377290935630046C9F8 /* XCRemoteSwiftPackageReference "BwNearPeer" */;
-			productName = BwNearPeer;
-		};
-		76B6C37E290937740046C9F8 /* BwLogger */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 76B6C37D290937740046C9F8 /* XCRemoteSwiftPackageReference "BwLogger" */;
-			productName = BwLogger;
-		};
-		76B6C383290938B20046C9F8 /* InfoPlistKeys */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 76B6C382290938B20046C9F8 /* XCRemoteSwiftPackageReference "InfoPlistKeys" */;
-			productName = InfoPlistKeys;
+			package = 760F867D290E4ED7009A735E /* XCRemoteSwiftPackageReference "InRoomLogger" */;
+			productName = InRoomLogger;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
