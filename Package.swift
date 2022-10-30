@@ -16,7 +16,6 @@ let package = Package(
             targets: ["InRoomLogger"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/BlueEventHorizon/BwLogger", from: "5.0.0"),
         .package(url: "https://github.com/BlueEventHorizon/BwNearPeer", from: "1.0.0"),
     ],
     targets: [
@@ -24,7 +23,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "InRoomLogger",
-            dependencies: ["BwLogger", "BwNearPeer"]),
+            dependencies: ["BwNearPeer"]),
         .testTarget(
             name: "InRoomLoggerTests",
             dependencies: ["InRoomLogger"]),
