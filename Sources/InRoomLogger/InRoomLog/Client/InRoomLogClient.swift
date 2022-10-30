@@ -1,5 +1,5 @@
 //
-//  NearPeerNotifier.swift
+//  InRoomLogClient.swift
 //  InRoomLogger
 //
 //  Created by Katsuhiko Terada on 2022/08/11.
@@ -33,15 +33,13 @@ public class InRoomLogClient: ObservableObject {
     private var dependency: InRoomLogClientDependency
     private let nearPeer: NearPeer
 
-    /// 複数の「しるドアモニター」の識別子を格納する
+    /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
-
-    private var sendCounter: Int = 0
 
     public init(dependency: InRoomLogClientDependency) {
         self.dependency = dependency
 
-        // 一度に接続できる「しるドアモニター」は１つだけ
+        // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
 
         nearPeer.onConnected { peer in
@@ -94,7 +92,6 @@ public class InRoomLogClient: ObservableObject {
     public func send(log: LogInformation) {
         if let encodedContent: Data = try? JSONEncoder().encode(log) {
             nearPeer.send(encodedContent)
-            sendCounter += 1
         } else {
             print("encode失敗")
         }

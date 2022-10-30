@@ -1,6 +1,6 @@
 //
 //  LogInformation.swift
-//  BwTools
+//  InRoomLogger
 //
 //  Created by k2moons on 2022/10/28.
 //  Copyright (c) 2022 k2moons. All rights reserved.
