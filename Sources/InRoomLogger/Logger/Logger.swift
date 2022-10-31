@@ -32,7 +32,7 @@ public class Logger {
         return self
     }
 
-    func log(_ log: LogInformation) {
+    public func log(_ log: LogInformation) {
         outputs.forEach { output in
             output.log(log)
         }
