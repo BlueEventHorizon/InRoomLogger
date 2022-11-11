@@ -6,30 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 import InRoomLogger
+
+//protocol LogMonitorMainViewDependency: ObservableObject {
+//    var logHistory: AnyPublisher<[LogInformationIdentified], Never> { get }
+//}
 
 struct LogMonitorMainView: View {
     @EnvironmentObject var monitor: InRoomLogMonitor
     @State var logHistory: [LogInformationIdentified] = []
+    @State private var flag = true
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 10) {
-                ForEach(self.logHistory) { log in
-                    Text(generateMessage(with: log))
-                        .font(.system(size: 12, design: .monospaced))
+        ScrollViewReader { reader in
+            ScrollView {
+                VStack(alignment: .trailing) {
+                    Toggle(isOn: $flag) {
+                        Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
+                    }
+                }
+                LazyVStack(alignment: .leading, spacing: 10) {
+                    ForEach(self.logHistory) { log in
+                        Text(generateMessage(with: log))
+                            .font(.system(size: 12, design: .monospaced))
+                    }
+                }
+                .onReceive(monitor.logHistory, perform: { value in
+                    self.logHistory = value
+                })
+                .onAppear {
+                    self.logHistory = monitor.logs
                 }
             }
             .padding(20)
-            .onChange(of: monitor.logHistory) { logHistory in
-                self.logHistory = logHistory
-            }
-            .onAppear {
-                self.logHistory = monitor.logHistory
-            }
         }
     }
-    
+
     // stringが空でなければstringの前にspacerを追加する
     func addSeparater(_ string: String, prefix: String = " ") -> String {
         guard !string.isEmpty else { return "" }
@@ -62,7 +75,10 @@ struct LogMonitorMainView: View {
 }
 
 struct LogMonitorMainView_Previews: PreviewProvider {
+    // @StateObject private var monitor = InRoomLogMonitor()
+
     static var previews: some View {
         LogMonitorMainView()
+           // .environmentObject(monitor)
     }
 }

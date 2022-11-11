@@ -6,7 +6,6 @@
 //
 
 import BwNearPeer
-import Combine
 import Foundation
 #if canImport(UIKit)
     import UIKit.UIDevice
@@ -27,7 +26,7 @@ public protocol InRoomLogClientDependency {
     var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
 }
 
-public class InRoomLogClient: ObservableObject {
+public class InRoomLogClient {
     var peerNames: [PeerIdentifier] = []
 
     private var dependency: InRoomLogClientDependency
