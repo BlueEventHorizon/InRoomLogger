@@ -21,19 +21,9 @@ protocol InRoomLogMonitorDependency {
 
     /// 永続的かつユニークである必要がある
     var identifier: String { get }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
-
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
-}
-
-struct InRoomLogMonitorResolver: InRoomLogMonitorDependency {
-    var serviceType: String { Const.serviceType }
-    var appName: String { InfoPlistKeys.displayName.getAsString() ?? "" }
-    var identifier: String { UserDefaults.monitorIdentifier }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.monitorIdentifier, .passcode: Const.passcode] }
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { nil }
+    
+    var clientIdentifier: String { get }
+    var monitorIdentifier: String { get }
 }
 
 public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
@@ -81,8 +71,8 @@ public class InRoomLogMonitor: ObservableObject {
     public func start() {
         nearPeer.start(serviceType: dependency.serviceType,
                        displayName: "\(dependency.appName).\(dependency.identifier)",
-                       myDiscoveryInfo: dependency.myDiscoveryInfo,
-                       targetDiscoveryInfo: dependency.targetDiscoveryInfo)
+                       myDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: Const.passcode],
+                       targetDiscoveryInfo: nil)
 
         nearPeer.onConnected { peer in
             print("🔵 [MON] \(peer.displayName) Connected")

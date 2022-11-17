@@ -21,9 +21,8 @@ public protocol InRoomLogClientDependency {
     /// 永続的かつユニークである必要がある
     var identifier: String { get }
 
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
-
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
+    var clientIdentifier: String { get }
+    var monitorIdentifier: String { get }
 }
 
 public class InRoomLogClient {
@@ -76,8 +75,8 @@ public class InRoomLogClient {
         
         nearPeer.start(serviceType: dependency.serviceType,
                        displayName: "\(dependency.appName).\(dependency.identifier)",
-                       myDiscoveryInfo: dependency.myDiscoveryInfo,
-                       targetDiscoveryInfo: dependency.targetDiscoveryInfo)
+                       myDiscoveryInfo: [.identifier: dependency.clientIdentifier, .passcode: Const.passcode],
+                       targetDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: Const.passcode])
     }
 
     public func resume() {
