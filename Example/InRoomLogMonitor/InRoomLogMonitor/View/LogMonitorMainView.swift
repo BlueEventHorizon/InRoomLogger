@@ -17,30 +17,42 @@ struct LogMonitorMainView: View {
     @EnvironmentObject var monitor: InRoomLogMonitor
     @State var logHistory: [LogInformationIdentified] = []
     @State private var flag = true
+    
+    let bottomID = UUID()
 
     var body: some View {
-        ScrollViewReader { reader in
-            ScrollView {
-                VStack(alignment: .trailing) {
-                    Toggle(isOn: $flag) {
-                        Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
+        VStack(alignment: .trailing) {
+            Toggle(isOn: $flag) {
+                Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
+            }
+            
+            ScrollViewReader { reader in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 10) {
+                        ForEach(self.logHistory) { log in
+                            Text(generateMessage(with: log))
+                                .font(.system(size: 12, design: .monospaced))
+                        }
                     }
-                }
-                LazyVStack(alignment: .leading, spacing: 10) {
-                    ForEach(self.logHistory) { log in
-                        Text(generateMessage(with: log))
-                            .font(.system(size: 12, design: .monospaced))
+                    .onReceive(monitor.logHistory, perform: { value in
+                        self.logHistory = value
+                    })
+                    .onAppear {
+                        self.logHistory = monitor.logs
                     }
+                    Spacer()
+                        .id(bottomID)
                 }
-                .onReceive(monitor.logHistory, perform: { value in
-                    self.logHistory = value
-                })
-                .onAppear {
-                    self.logHistory = monitor.logs
+                .onChange(of: logHistory) { newValue in
+                    if flag {
+                        withAnimation {
+                            reader.scrollTo(bottomID)
+                        }
+                    }
                 }
             }
-            .padding(20)
         }
+        .padding(20)
     }
 
     // stringが空でなければstringの前にspacerを追加する
