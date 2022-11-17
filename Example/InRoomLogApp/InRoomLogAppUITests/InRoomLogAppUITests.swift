@@ -2,12 +2,12 @@
 //  InRoomLogAppUITests.swift
 //  InRoomLogAppUITests
 //
-//  Created by Katsuhiko Terada on 2022/10/27.
+//  Created by Katsuhiko Terada on 2022/11/11.
 //
 
 import XCTest
 
-final class InRoomLogAppUITests: XCTestCase {
+class InRoomLogAppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

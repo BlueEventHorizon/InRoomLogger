@@ -11,7 +11,7 @@ import Foundation
 final class StructHolder: Sequence, IteratorProtocol {
     static let `default` = StructHolder()
 
-    private var holder = [any UUIDIdentifiable]()
+    private var holder = [UUIDIdentifiable]()
     private var queueMax: Int = 0 // 0 means no max limitation when using enqueue/dequeue
     private var counter: Int = 0
 
@@ -20,12 +20,12 @@ final class StructHolder: Sequence, IteratorProtocol {
     }
 
     /// 一番古いオブジェクトを取得する
-    var first: (any UUIDIdentifiable)? {
+    var first: UUIDIdentifiable? {
         holder.first
     }
 
     /// 一番新しいオブジェクトを取得する
-    var last: (any UUIDIdentifiable)? {
+    var last: UUIDIdentifiable? {
         holder.last
     }
 
@@ -41,7 +41,7 @@ final class StructHolder: Sequence, IteratorProtocol {
     }
 
     // IteratorProtocol
-    func next() -> (any UUIDIdentifiable)? {
+    func next() -> UUIDIdentifiable? {
         if holder.count > counter {
             let index = counter
             counter += 1
@@ -53,18 +53,18 @@ final class StructHolder: Sequence, IteratorProtocol {
     // MARK: - 基本機能
 
     /// オブジェクトを新規追加
-    func set(_ obj: any UUIDIdentifiable) {
+    func set(_ obj: UUIDIdentifiable) {
         holder.append(obj)
     }
 
     /// オブジェクトを取得する
-    func get(identifier: UUID) -> (any UUIDIdentifiable)? {
+    func get(identifier: UUID) -> UUIDIdentifiable? {
         holder.enumerated().first(where: { $0.element.id == identifier })?.element
     }
 
     /// オブジェクトを削除
     @discardableResult
-    func remove(identifier: UUID) -> (any UUIDIdentifiable)? {
+    func remove(identifier: UUID) -> UUIDIdentifiable? {
         if let enumerated = holder.enumerated().first(where: { $0.element.id == identifier }) {
             let obj = enumerated.element
             holder.remove(at: enumerated.offset)
@@ -75,13 +75,13 @@ final class StructHolder: Sequence, IteratorProtocol {
 
     func reset() {
         counter = 0
-        holder = [any UUIDIdentifiable]()
+        holder = [UUIDIdentifiable]()
     }
 
     // MARK: - Queue
 
     // Queue [FIFO] オブジェクトを追加
-    func enqueue(_ obj: any UUIDIdentifiable) {
+    func enqueue(_ obj: UUIDIdentifiable) {
         if queueMax != 0, holder.count > queueMax {
             dequeue()
         }
@@ -90,7 +90,7 @@ final class StructHolder: Sequence, IteratorProtocol {
 
     /// Queue [FIFO] オブジェクトを取り出す（最初に追加したオブジェクトから取り出して、取り出したら削除）
     @discardableResult
-    func dequeue() -> (any UUIDIdentifiable)? {
+    func dequeue() -> UUIDIdentifiable? {
         if let first = first {
             remove(identifier: first.id)
             return first
@@ -101,12 +101,12 @@ final class StructHolder: Sequence, IteratorProtocol {
     // MARK: - Push/Pop
 
     /// Stack [LIFO] オブジェクトを追加
-    func push(_ obj: any UUIDIdentifiable) {
+    func push(_ obj: UUIDIdentifiable) {
         set(obj)
     }
 
     /// Stack [LIFO] オブジェクトを取り出す（最後に追加したオブジェクトから取り出して、取り出したら削除）
-    func pop() -> (any UUIDIdentifiable)? {
+    func pop() -> UUIDIdentifiable? {
         if let last = last {
             remove(identifier: last.id)
             return last
