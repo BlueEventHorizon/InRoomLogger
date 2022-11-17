@@ -18,8 +18,8 @@ public class Logger {
     /// ログのアウトプット先
     private(set) var outputs: [LogOutput]
 
-    public init(outputs: [LogOutput] = [InRoomLogOutput()]) {
-        self.outputs = outputs
+    public init(passcode: String) {
+        self.outputs = [InRoomLogOutput(passcode: passcode)]
     }
 
     /// ログのアウトプット先設定
