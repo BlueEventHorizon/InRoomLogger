@@ -56,15 +56,21 @@ public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
 
 @available(iOS 13.0, *)
 public class InRoomLogMonitor: ObservableObject {
-    @Published public var peerNames: [PeerIdentifier] = []
-    @Published public var logHistory: [LogInformationIdentified] = []
+    /// AnyPublisherとして外部へ公開
+    public lazy var logHistory = { logHistorySubject.eraseToAnyPublisher() }()
+    public lazy var peerNames = { peerNamesSubject.eraseToAnyPublisher() }()
 
-    private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
-    private let nearPeer: NearPeer
+    /// Subject
+    private var peerNamesSubject = PassthroughSubject<[PeerIdentifier], Never>()
+    private var logHistorySubject = PassthroughSubject<[LogInformationIdentified], Never>()
 
+    /// ログ履歴
+    public private(set) var logs: [LogInformationIdentified] = []
     /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
 
+    private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
+    private let nearPeer: NearPeer
     private var sendCounter: Int = 0
 
     public init() {
@@ -86,9 +92,10 @@ public class InRoomLogMonitor: ObservableObject {
 
             if let displayName = peerComponents.first, let uuidString = peerComponents.last, let uuid = UUID(uuidString: uuidString) {
                 self.peers.set(PeerIdentifier(id: uuid, displayName: displayName))
-                self.peerNames = self.peers.map {
+                let peerNames = self.peers.map {
                     $0 as! PeerIdentifier
                 }
+                self.peerNamesSubject.send(peerNames)
 
                 print("🟡 [MON] peerName | \(displayName), peerIdentifier = \(uuidString)")
             }
@@ -103,9 +110,10 @@ public class InRoomLogMonitor: ObservableObject {
 
                     if let uuidString = peerComponents.last, let uuid = UUID(uuidString: uuidString) {
                         self.peers.remove(identifier: uuid)
-                        self.peerNames = self.peers.map {
+                        let peerNames = self.peers.map {
                             $0 as! PeerIdentifier
                         }
+                        self.peerNamesSubject.send(peerNames)
                     }
                 }
             }
@@ -122,7 +130,8 @@ public class InRoomLogMonitor: ObservableObject {
                     }
 
                     if let content = try? JSONDecoder().decode(LogInformation.self, from: data) {
-                        self.logHistory.append(LogInformationIdentified(content))
+                        self.logs.append(LogInformationIdentified(content))
+                        self.logHistorySubject.send(self.logs)
                         print(content)
 
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {
