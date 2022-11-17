@@ -9,7 +9,7 @@ import SwiftUI
 import InRoomLogger
 
 struct ContentView: View {
-    @State var logger = Logger()
+    @State var logger = Logger(passcode: "2022_1117")
 
     var body: some View {
         VStack {
