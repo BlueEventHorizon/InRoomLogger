@@ -42,7 +42,6 @@
 /* Begin PBXFileReference section */
 		760F8685290E5082009A735E /* TimeValueObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeValueObject.swift; sourceTree = "<group>"; };
 		760F8686290E5082009A735E /* String+decorate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+decorate.swift"; sourceTree = "<group>"; };
-		762932B72910BE4B005F2BCC /* InRoomLogger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = InRoomLogger; path = ../..; sourceTree = "<group>"; };
 		76A958F6290A88BF00AFE6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		76B6C349290923D60046C9F8 /* InRoomLogMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InRoomLogMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6C34C290923D60046C9F8 /* LogMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMonitorApp.swift; sourceTree = "<group>"; };
@@ -98,7 +97,6 @@
 		76B6C340290923D60046C9F8 = {
 			isa = PBXGroup;
 			children = (
-				762932B72910BE4B005F2BCC /* InRoomLogger */,
 				76B6C34B290923D60046C9F8 /* InRoomLogMonitor */,
 				76B6C35D290923D70046C9F8 /* InRoomLogMonitorTests */,
 				76B6C367290923D70046C9F8 /* InRoomLogMonitorUITests */,
