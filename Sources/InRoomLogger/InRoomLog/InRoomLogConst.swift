@@ -12,6 +12,4 @@ enum Const {
 
     static let clientIdentifier = "com.beowulf-tech.\(serviceType).discovery.name.client"
     static let monitorIdentifier = "com.beowulf-tech.\(serviceType).discovery.name.monitor"
-
-    static let passcode = "20221026"
 }

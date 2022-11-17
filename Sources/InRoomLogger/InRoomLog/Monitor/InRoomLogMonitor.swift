@@ -12,7 +12,7 @@ import Foundation
     import UIKit.UIDevice
 #endif
 
-protocol InRoomLogMonitorDependency {
+public protocol InRoomLogMonitorDependency {
     /// InfoPlistに記述が必要
     var serviceType: String { get }
 
@@ -61,17 +61,25 @@ public class InRoomLogMonitor: ObservableObject {
 
     private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
     private let nearPeer: NearPeer
+    private let passcode: String
     private var sendCounter: Int = 0
+    
 
-    public init() {
+    public init(passcode: String, dependency: InRoomLogMonitorDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
+
+        if let dependency = dependency {
+            self.dependency = dependency
+        }
+
+        self.passcode = passcode
     }
 
     public func start() {
         nearPeer.start(serviceType: dependency.serviceType,
                        displayName: "\(dependency.appName).\(dependency.identifier)",
-                       myDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: Const.passcode],
+                       myDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: passcode],
                        targetDiscoveryInfo: nil)
 
         nearPeer.onConnected { peer in

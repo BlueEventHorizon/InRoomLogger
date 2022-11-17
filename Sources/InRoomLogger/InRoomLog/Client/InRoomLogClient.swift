@@ -28,18 +28,27 @@ public protocol InRoomLogClientDependency {
 public class InRoomLogClient {
     var peerNames: [PeerIdentifier] = []
 
-    private var dependency: InRoomLogClientDependency
+    private var dependency: InRoomLogClientDependency = InRoomLogClientResolver()
     private let nearPeer: NearPeer
+    private let passcode: String
 
     /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
 
-    public init(dependency: InRoomLogClientDependency) {
-        self.dependency = dependency
-
+    public init(passcode: String, dependency: InRoomLogClientDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
 
+        self.passcode = passcode
+        
+        if let dependency = dependency {
+            self.dependency = dependency
+        }
+
+        start()
+    }
+    
+    private func start() {
         nearPeer.onConnected { peer in
             print("🔵 \(peer.displayName) Connected")
             // TODO: 切断された時の処理を追加すること
@@ -75,8 +84,8 @@ public class InRoomLogClient {
         
         nearPeer.start(serviceType: dependency.serviceType,
                        displayName: "\(dependency.appName).\(dependency.identifier)",
-                       myDiscoveryInfo: [.identifier: dependency.clientIdentifier, .passcode: Const.passcode],
-                       targetDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: Const.passcode])
+                       myDiscoveryInfo: [.identifier: dependency.clientIdentifier, .passcode: passcode],
+                       targetDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: passcode])
     }
 
     public func resume() {
