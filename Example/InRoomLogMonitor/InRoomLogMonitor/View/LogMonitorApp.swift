@@ -13,7 +13,7 @@ struct LogMonitorApp: App {
 
 // @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @StateObject private var monitor: InRoomLogMonitor = InRoomLogMonitor()
+    @StateObject private var monitor: InRoomLogMonitor = InRoomLogMonitor(passcode: "2022_1117")
     @StateObject private var appState = AppState.default
 
     var body: some Scene {
