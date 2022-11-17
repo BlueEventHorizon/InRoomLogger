@@ -599,8 +599,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/BlueEventHorizon/InRoomLogger";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.1;
+				branch = develop;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
