@@ -12,7 +12,7 @@ import Foundation
     import UIKit.UIDevice
 #endif
 
-protocol InRoomLogMonitorDependency {
+public protocol InRoomLogMonitorDependency {
     /// InfoPlistに記述が必要
     var serviceType: String { get }
 
@@ -21,19 +21,9 @@ protocol InRoomLogMonitorDependency {
 
     /// 永続的かつユニークである必要がある
     var identifier: String { get }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
-
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { get }
-}
-
-struct InRoomLogMonitorResolver: InRoomLogMonitorDependency {
-    var serviceType: String { Const.serviceType }
-    var appName: String { InfoPlistKeys.displayName.getAsString() ?? "" }
-    var identifier: String { UserDefaults.monitorIdentifier }
-
-    var myDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { [.identifier: Const.monitorIdentifier, .passcode: Const.passcode] }
-    var targetDiscoveryInfo: [NearPeerDiscoveryInfoKey: String]? { nil }
+    
+    var clientIdentifier: String { get }
+    var monitorIdentifier: String { get }
 }
 
 public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
@@ -56,27 +46,41 @@ public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
 
 @available(iOS 13.0, *)
 public class InRoomLogMonitor: ObservableObject {
-    @Published public var peerNames: [PeerIdentifier] = []
-    @Published public var logHistory: [LogInformationIdentified] = []
+    /// AnyPublisherとして外部へ公開
+    public lazy var logHistory = { logHistorySubject.eraseToAnyPublisher() }()
+    public lazy var peerNames = { peerNamesSubject.eraseToAnyPublisher() }()
 
-    private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
-    private let nearPeer: NearPeer
+    /// Subject
+    private var peerNamesSubject = PassthroughSubject<[PeerIdentifier], Never>()
+    private var logHistorySubject = PassthroughSubject<[LogInformationIdentified], Never>()
 
+    /// ログ履歴
+    public private(set) var logs: [LogInformationIdentified] = []
     /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
 
+    private var dependency: InRoomLogMonitorDependency = InRoomLogMonitorResolver()
+    private let nearPeer: NearPeer
+    private let passcode: String
     private var sendCounter: Int = 0
+    
 
-    public init() {
+    public init(passcode: String, dependency: InRoomLogMonitorDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
         nearPeer = NearPeer(maxPeers: 1)
+
+        if let dependency = dependency {
+            self.dependency = dependency
+        }
+
+        self.passcode = passcode
     }
 
     public func start() {
         nearPeer.start(serviceType: dependency.serviceType,
                        displayName: "\(dependency.appName).\(dependency.identifier)",
-                       myDiscoveryInfo: dependency.myDiscoveryInfo,
-                       targetDiscoveryInfo: dependency.targetDiscoveryInfo)
+                       myDiscoveryInfo: [.identifier: dependency.monitorIdentifier, .passcode: passcode],
+                       targetDiscoveryInfo: nil)
 
         nearPeer.onConnected { peer in
             print("🔵 [MON] \(peer.displayName) Connected")
@@ -86,9 +90,10 @@ public class InRoomLogMonitor: ObservableObject {
 
             if let displayName = peerComponents.first, let uuidString = peerComponents.last, let uuid = UUID(uuidString: uuidString) {
                 self.peers.set(PeerIdentifier(id: uuid, displayName: displayName))
-                self.peerNames = self.peers.map {
+                let peerNames = self.peers.map {
                     $0 as! PeerIdentifier
                 }
+                self.peerNamesSubject.send(peerNames)
 
                 print("🟡 [MON] peerName | \(displayName), peerIdentifier = \(uuidString)")
             }
@@ -103,9 +108,10 @@ public class InRoomLogMonitor: ObservableObject {
 
                     if let uuidString = peerComponents.last, let uuid = UUID(uuidString: uuidString) {
                         self.peers.remove(identifier: uuid)
-                        self.peerNames = self.peers.map {
+                        let peerNames = self.peers.map {
                             $0 as! PeerIdentifier
                         }
+                        self.peerNamesSubject.send(peerNames)
                     }
                 }
             }
@@ -122,7 +128,8 @@ public class InRoomLogMonitor: ObservableObject {
                     }
 
                     if let content = try? JSONDecoder().decode(LogInformation.self, from: data) {
-                        self.logHistory.append(LogInformationIdentified(content))
+                        self.logs.append(LogInformationIdentified(content))
+                        self.logHistorySubject.send(self.logs)
                         print(content)
 
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {

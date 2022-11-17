@@ -2,12 +2,12 @@
 //  InRoomLogAppUITestsLaunchTests.swift
 //  InRoomLogAppUITests
 //
-//  Created by Katsuhiko Terada on 2022/10/27.
+//  Created by Katsuhiko Terada on 2022/11/11.
 //
 
 import XCTest
 
-final class InRoomLogAppUITestsLaunchTests: XCTestCase {
+class InRoomLogAppUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

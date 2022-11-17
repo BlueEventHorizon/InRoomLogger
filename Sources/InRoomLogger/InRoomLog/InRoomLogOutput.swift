@@ -12,8 +12,8 @@ import BwNearPeer
 public class InRoomLogOutput {
     let client: InRoomLogClient
 
-    public init() {
-        client = InRoomLogClient(dependency: InRoomLogClientResolver())
+    public init(passcode: String) {
+        client = InRoomLogClient(passcode: passcode)
     }
 }
 

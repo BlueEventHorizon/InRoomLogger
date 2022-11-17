@@ -71,6 +71,17 @@ open class LogInformation: Codable {
         self.prefix = log.prefix
     }
 
+    public init(_ message: String, date: Date, level: Level, objectName: String, function: String, file: String, line: Int, prefix: String?) {
+        self.level = level
+        self.message = message
+        self.date = date
+        self.objectName = objectName
+        self.function = function
+        self.file = file
+        self.line = line
+        self.prefix = prefix
+    }
+
     /// タイムスタンプを生成
     public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
         date.string(dateFormat: format, timeZone: .current)
