@@ -13,7 +13,7 @@ import Foundation
 // ------------------------------------------------------------------------------------------
 
 /// Logの基本情報を保持する構造体
-open class LogInformation: Codable {
+open class LogInformation: Codable, UUIDIdentifiable {
     public enum Level: String, Codable, CaseIterable {
         case log
         case debug
@@ -23,6 +23,7 @@ open class LogInformation: Codable {
         case fault
     }
 
+    public let id: UUID
     public let level: Level
     public let message: String
     public let date: Date
@@ -42,6 +43,7 @@ open class LogInformation: Codable {
     ///   - prefix: 先頭に追加する文字列（初期値は無し）
     ///   - instance: インスタンスを渡すと、ログに「クラス名:関数名」を出力
     public init(_ message: Any, level: Level = .log, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line, prefix: String? = nil, instance: Any? = nil) {
+        id = UUID()
         self.level = level
         self.prefix = prefix
 
@@ -61,6 +63,7 @@ open class LogInformation: Codable {
     }
     
     public init(_ log: LogInformation) {
+        id = log.id
         self.message = log.message
         self.level = log.level
         self.date = log.date
@@ -72,6 +75,7 @@ open class LogInformation: Codable {
     }
 
     public init(_ message: String, date: Date, level: Level, objectName: String, function: String, file: String, line: Int, prefix: String?) {
+        id = UUID()
         self.level = level
         self.message = message
         self.date = date
