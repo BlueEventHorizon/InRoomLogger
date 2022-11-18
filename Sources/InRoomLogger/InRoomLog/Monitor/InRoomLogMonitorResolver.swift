@@ -15,4 +15,3 @@ struct InRoomLogMonitorResolver: InRoomLogMonitorDependency {
     var clientIdentifier: String { Const.clientIdentifier }
     var monitorIdentifier: String { Const.monitorIdentifier }
 }
-
