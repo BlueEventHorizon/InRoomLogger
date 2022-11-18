@@ -11,9 +11,9 @@ import Foundation
 final class StructHolder: Sequence, IteratorProtocol {
     static let `default` = StructHolder()
 
-    private var holder = [UUIDIdentifiable]()
-    private var queueMax: Int = 0 // 0 means no max limitation when using enqueue/dequeue
-    private var counter: Int = 0
+    private(set) var holder = [UUIDIdentifiable]()
+    private(set) var queueMax: Int = 20 // 0 means no max limitation when using enqueue/dequeue
+    private(set) var counter: Int = 0
 
     var isEmpty: Bool {
         holder.isEmpty
