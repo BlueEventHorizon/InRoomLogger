@@ -14,4 +14,8 @@ struct InRoomLogClientResolver: InRoomLogClientDependency {
 
     var clientIdentifier: String { Const.clientIdentifier }
     var monitorIdentifier: String { Const.monitorIdentifier }
+    
+    func log(_ information: LogInformation) {
+        //
+    }
 }
