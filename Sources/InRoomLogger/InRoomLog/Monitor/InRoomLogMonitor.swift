@@ -30,15 +30,11 @@ public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
     public static func == (lhs: LogInformationIdentified, rhs: LogInformationIdentified) -> Bool {
         lhs.id == rhs.id
     }
-
-    public let id: UUID
-
+    
     public override init(_ log: LogInformation) {
-        id = UUID()
-        
         super.init(log)
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
@@ -63,7 +59,6 @@ public class InRoomLogMonitor: ObservableObject {
     private let nearPeer: NearPeer
     private let passcode: String
     private var sendCounter: Int = 0
-    
 
     public init(passcode: String, dependency: InRoomLogMonitorDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
@@ -75,6 +70,15 @@ public class InRoomLogMonitor: ObservableObject {
 
         self.passcode = passcode
     }
+    
+    private func receive(log: LogInformation) {
+        self.logs.append(LogInformationIdentified(log))
+        self.logHistorySubject.send(self.logs)
+    }
+
+    private func log(_ log: LogInformation) {
+        receive(log: log)
+    }
 
     public func start() {
         nearPeer.start(serviceType: dependency.serviceType,
@@ -83,7 +87,7 @@ public class InRoomLogMonitor: ObservableObject {
                        targetDiscoveryInfo: nil)
 
         nearPeer.onConnected { peer in
-            print("🔵 [MON] \(peer.displayName) Connected")
+            self.log(LogInformation("[MON] \(peer.displayName) Connected", level: .info, prefix: "$", instance: self))
             // TODO: 切断された時の処理を追加すること
 
             let peerComponents = peer.displayName.components(separatedBy: ".")
@@ -95,14 +99,14 @@ public class InRoomLogMonitor: ObservableObject {
                 }
                 self.peerNamesSubject.send(peerNames)
 
-                print("🟡 [MON] peerName | \(displayName), peerIdentifier = \(uuidString)")
+                self.log(LogInformation("[MON] peerName = \(displayName), peerIdentifier = \(uuidString)", level: .info, prefix: "$", instance: self))
             }
         }
 
         nearPeer.onDisconnect { peer in
             Task {
                 await MainActor.run {
-                    print("🔴 [MON] \(peer) is disconnected")
+                    self.log(LogInformation("[MON] \(peer) is disconnected", level: .info, prefix: "$", instance: self))
 
                     let peerComponents = peer.displayName.components(separatedBy: ".")
 
@@ -120,22 +124,20 @@ public class InRoomLogMonitor: ObservableObject {
         nearPeer.onReceived { peer, data in
             Task {
                 await MainActor.run {
-                    print("🟢 [MON] Received")
+                    // self.log(LogInformation("[MON] Received", prefix: "$", instance: self))
 
                     guard let data = data else {
-                        print("データがありません")
+                        self.log(LogInformation("[MON] データがありません", level: .warning, prefix: "⚠️"))
                         return
                     }
 
                     if let content = try? JSONDecoder().decode(LogInformation.self, from: data) {
-                        self.logs.append(LogInformationIdentified(content))
-                        self.logHistorySubject.send(self.logs)
-                        print(content)
+                        self.receive(log: content)
 
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {
-                        print(text)
+                        self.log(LogInformation(text))
                     } else {
-                        print("decode失敗")
+                        self.log(LogInformation("[MON] decode失敗", level: .error, prefix: "🔥", instance: self))
                     }
                 }
             }

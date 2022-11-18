@@ -11,7 +11,7 @@ import Foundation
     import UIKit.UIDevice
 #endif
 
-public protocol InRoomLogClientDependency {
+public protocol InRoomLogClientDependency: LogOutput {
     /// InfoPlistに記述が必要
     var serviceType: String { get }
 
@@ -31,9 +31,12 @@ public class InRoomLogClient {
     private var dependency: InRoomLogClientDependency = InRoomLogClientResolver()
     private let nearPeer: NearPeer
     private let passcode: String
+    private let dispatch = DispatchQueue(label: "com.beowulf-tech.InRoomLogClient.send.queue")
 
     /// 複数のPeerの識別子を格納する
     private let peers = StructHolder()
+    /// ログを一旦蓄積する
+    private let logs = StructHolder()
 
     public init(passcode: String, dependency: InRoomLogClientDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
@@ -50,7 +53,7 @@ public class InRoomLogClient {
     
     private func start() {
         nearPeer.onConnected { peer in
-            print("🔵 \(peer.displayName) Connected")
+            self.dependency.log(LogInformation("\(peer.displayName) Connected", prefix: "🔵", instance: self))
             // TODO: 切断された時の処理を追加すること
 
             let peerComponents = peer.displayName.components(separatedBy: ".")
@@ -61,12 +64,14 @@ public class InRoomLogClient {
                     $0 as! PeerIdentifier
                 }
 
-                print("🟡 peerName | \(displayName), peerIdentifier = \(uuidString)")
+                self.dependency.log(LogInformation("peerName | \(displayName), peerIdentifier = \(uuidString)", prefix: "🟡", instance: self))
+
+                self.send()
             }
         }
 
         nearPeer.onDisconnect { peer in
-            print("🔴 \(peer) is disconnected")
+            self.dependency.log(LogInformation("\(peer) is disconnected", prefix: "🔴", instance: self))
 
             let peerComponents = peer.displayName.components(separatedBy: ".")
 
@@ -79,7 +84,7 @@ public class InRoomLogClient {
         }
 
         nearPeer.onReceived { _, data in
-            print("🟢 Received \(data?.description ?? "")")
+            self.dependency.log(LogInformation("Received \(data?.description ?? "")", prefix: "🟢", instance: self))
         }
         
         nearPeer.start(serviceType: dependency.serviceType,
@@ -97,10 +102,31 @@ public class InRoomLogClient {
     }
 
     public func send(log: LogInformation) {
-        if let encodedContent: Data = try? JSONEncoder().encode(log) {
-            nearPeer.send(encodedContent)
-        } else {
-            print("encode失敗")
+        dispatch.async {
+            self.logs.enqueue(log)
+            self.send()
+        }
+    }
+
+    private func send() {
+        dispatch.async {
+            guard !self.peers.isEmpty else {
+                return
+            }
+
+            guard let log = self.logs.dequeue() as? LogInformation else {
+                return
+            }
+
+            if let encodedContent: Data = try? JSONEncoder().encode(log) {
+                self.nearPeer.send(encodedContent)
+            } else {
+                self.dependency.log(LogInformation("encode失敗", level: .error, prefix: "🔥", instance: self))
+
+                sleep(1000)
+            }
+
+            self.send()
         }
     }
 }

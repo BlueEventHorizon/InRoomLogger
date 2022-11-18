@@ -63,11 +63,3 @@ public class Logger {
         log(LogInformation(message, level: .fault, function: function, file: file, line: line, instance: instance))
     }
 }
-
-// ------------------------------------------------------------------------------------------
-// MARK: - LogOutput
-// ------------------------------------------------------------------------------------------
-
-public protocol LogOutput {
-    func log(_ information: LogInformation)
-}
