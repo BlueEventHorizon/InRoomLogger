@@ -30,15 +30,11 @@ public class LogInformationIdentified: LogInformation, Identifiable, Equatable {
     public static func == (lhs: LogInformationIdentified, rhs: LogInformationIdentified) -> Bool {
         lhs.id == rhs.id
     }
-
-    public let id: UUID
-
+    
     public override init(_ log: LogInformation) {
-        id = UUID()
-        
         super.init(log)
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
