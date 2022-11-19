@@ -20,6 +20,12 @@
 		76B6C397290949E30046C9F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C396290949E30046C9F8 /* AppDelegate.swift */; };
 		76B6C39A29094C700046C9F8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39929094C700046C9F8 /* AppState.swift */; };
 		76B6C39D29094D550046C9F8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6C39C29094D550046C9F8 /* SplashView.swift */; };
+		76D0913229287FCF002E69CD /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D0912E29287FCF002E69CD /* ImageText.swift */; };
+		76D0913329287FCF002E69CD /* StyledText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D0912F29287FCF002E69CD /* StyledText.swift */; };
+		76D0913429287FCF002E69CD /* TextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D0913029287FCF002E69CD /* TextFeild.swift */; };
+		76E9490F292886ED0019BD82 /* UIColor+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9490E292886ED0019BD82 /* UIColor+Color.swift */; };
+		76E949112928A0570019BD82 /* BorderStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E949102928A0570019BD82 /* BorderStyleModifier.swift */; };
+		76E949132928A0770019BD82 /* TextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E949122928A0770019BD82 /* TextStyleModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +63,12 @@
 		76B6C396290949E30046C9F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76B6C39929094C700046C9F8 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		76B6C39C29094D550046C9F8 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		76D0912E29287FCF002E69CD /* ImageText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageText.swift; sourceTree = "<group>"; };
+		76D0912F29287FCF002E69CD /* StyledText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledText.swift; sourceTree = "<group>"; };
+		76D0913029287FCF002E69CD /* TextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFeild.swift; sourceTree = "<group>"; };
+		76E9490E292886ED0019BD82 /* UIColor+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Color.swift"; sourceTree = "<group>"; };
+		76E949102928A0570019BD82 /* BorderStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderStyleModifier.swift; sourceTree = "<group>"; };
+		76E949122928A0770019BD82 /* TextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,11 +129,12 @@
 		76B6C34B290923D60046C9F8 /* InRoomLogMonitor */ = {
 			isa = PBXGroup;
 			children = (
-				76A958F6290A88BF00AFE6CF /* Info.plist */,
+				76D0912B29287EE0002E69CD /* UITools */,
 				760F8684290E5082009A735E /* Infrastructure */,
 				76B6C39B29094D3D0046C9F8 /* View */,
 				76B6C396290949E30046C9F8 /* AppDelegate.swift */,
 				76B6C39929094C700046C9F8 /* AppState.swift */,
+				76A958F6290A88BF00AFE6CF /* Info.plist */,
 				76B6C350290923D60046C9F8 /* Assets.xcassets */,
 				76B6C352290923D60046C9F8 /* InRoomLogMonitor.entitlements */,
 				76B6C353290923D60046C9F8 /* Preview Content */,
@@ -162,6 +175,19 @@
 				76B6C39C29094D550046C9F8 /* SplashView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		76D0912B29287EE0002E69CD /* UITools */ = {
+			isa = PBXGroup;
+			children = (
+				76E9490E292886ED0019BD82 /* UIColor+Color.swift */,
+				76D0912F29287FCF002E69CD /* StyledText.swift */,
+				76E949122928A0770019BD82 /* TextStyleModifier.swift */,
+				76E949102928A0570019BD82 /* BorderStyleModifier.swift */,
+				76D0912E29287FCF002E69CD /* ImageText.swift */,
+				76D0913029287FCF002E69CD /* TextFeild.swift */,
+			);
+			path = UITools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,11 +327,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				76B6C34F290923D60046C9F8 /* LogMonitorMainView.swift in Sources */,
+				76E949132928A0770019BD82 /* TextStyleModifier.swift in Sources */,
 				76B6C39D29094D550046C9F8 /* SplashView.swift in Sources */,
+				76E9490F292886ED0019BD82 /* UIColor+Color.swift in Sources */,
+				76D0913229287FCF002E69CD /* ImageText.swift in Sources */,
 				76B6C34D290923D60046C9F8 /* LogMonitorApp.swift in Sources */,
 				760F8687290E5082009A735E /* TimeValueObject.swift in Sources */,
+				76D0913329287FCF002E69CD /* StyledText.swift in Sources */,
+				76E949112928A0570019BD82 /* BorderStyleModifier.swift in Sources */,
 				760F8688290E5082009A735E /* String+decorate.swift in Sources */,
 				76B6C39A29094C700046C9F8 /* AppState.swift in Sources */,
+				76D0913429287FCF002E69CD /* TextFeild.swift in Sources */,
 				76B6C397290949E30046C9F8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
