@@ -14,6 +14,7 @@ public struct BorderStyleModifier: ViewModifier {
         public let fillColor: Color?
         public let cornerRadius: CGFloat
         public let borderLineWidth: CGFloat
+        public let borderLineColor: Color
         public let shadowColor: Color?
         public let shadowOffset: CGFloat
 
@@ -21,6 +22,7 @@ public struct BorderStyleModifier: ViewModifier {
                     fillColor: Color? = nil,
                     cornerRadius: CGFloat = 7,
                     borderLineWidth: CGFloat = 0,
+                    borderLineColor: Color = .clear,
                     shadowColor: Color? = nil,
                     shadowOffset: CGFloat = 0
         ) {
@@ -28,6 +30,7 @@ public struct BorderStyleModifier: ViewModifier {
             self.fillColor = fillColor
             self.cornerRadius = cornerRadius
             self.borderLineWidth = borderLineWidth
+            self.borderLineColor = borderLineColor
             self.shadowColor = shadowColor
             self.shadowOffset = shadowOffset
         }
@@ -43,19 +46,28 @@ public struct BorderStyleModifier: ViewModifier {
         content
             .padding(.horizontal, style.padding.width)
             .padding(.vertical, style.padding.height)
-            // .lineSpacing(10.0)
-            // .frame(height: height)
+
         #if canImport(UIKit)
             .background(style.fillColor)
             .cornerRadius(style.cornerRadius)
             // 角丸ボーダーライン
             .overlay(
                 RoundedRectangle(cornerRadius: style.cornerRadius)
-                    .stroke(Color.gray, lineWidth: 0)
+                    .stroke(style.borderLineColor, lineWidth: 0)
             )
         #else
-            
+            // Macでは角丸ボーダーラインがうまく表示できない🤔
         #endif
+        
+        if let shadowColor = style.shadowColor {
+            content
+            // Viewの要素をグループ化
+            .compositingGroup()
+            .shadow(color: shadowColor,
+                    radius: style.shadowOffset,
+                    x: style.shadowOffset,
+                    y: style.shadowOffset)
+        }
     }
 }
 
