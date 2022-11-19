@@ -30,8 +30,10 @@ struct LogMonitorMainView: View {
                 let borderStyle: BorderStyleModifier.BorderStyle = .init()
             #endif
 
-            makeBorderedButton(text: "clear", textStyle: textStyle, borderStyle: borderStyle) { _ in
+            Button {
                 //
+            } label: {
+                CustomStyleLabel(text: .constant("clear"), imageName: .constant(""), textStyle: .constant(textStyle), borderStyle: .constant(borderStyle))
             }
 
             Toggle(isOn: $flag) {
