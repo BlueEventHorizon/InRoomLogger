@@ -22,10 +22,22 @@ struct LogMonitorMainView: View {
 
     var body: some View {
         VStack(alignment: .trailing) {
+            #if canImport(UIKit)
+                let textStyle: TextStyleModifier.TextStyle = .init(font: .subheadline, textColor: .white)
+                let borderStyle: BorderStyleModifier.BorderStyle = .init(fillColor: .accentColor )
+            #else
+                let textStyle: TextStyleModifier.TextStyle = .init(font: .subheadline, textColor: .accentColor)
+                let borderStyle: BorderStyleModifier.BorderStyle = .init()
+            #endif
+
+            makeBorderedButton(text: "clear", textStyle: textStyle, borderStyle: borderStyle) { _ in
+                //
+            }
+
             Toggle(isOn: $flag) {
                 Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
             }
-            
+
             ScrollViewReader { reader in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 10) {
@@ -46,6 +58,7 @@ struct LogMonitorMainView: View {
                 .onChange(of: logHistory) { newValue in
                     if flag {
                         withAnimation {
+                            // 一番下にスクロールする
                             reader.scrollTo(bottomID)
                         }
                     }
