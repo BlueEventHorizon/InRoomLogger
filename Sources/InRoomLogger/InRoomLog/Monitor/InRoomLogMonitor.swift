@@ -71,9 +71,14 @@ public class InRoomLogMonitor: ObservableObject {
         self.passcode = passcode
     }
     
+    public func clearLog() {
+        logs = []
+        self.logHistorySubject.send(logs)
+    }
+    
     private func receive(log: LogInformation) {
         self.logs.append(LogInformationIdentified(log))
-        self.logHistorySubject.send(self.logs)
+        self.logHistorySubject.send(logs)
     }
 
     private func log(_ log: LogInformation) {
