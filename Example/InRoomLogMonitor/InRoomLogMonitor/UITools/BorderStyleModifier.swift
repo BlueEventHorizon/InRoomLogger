@@ -15,7 +15,7 @@ public struct BorderStyleModifier: ViewModifier {
         public let cornerRadius: CGFloat
         public let borderLineWidth: CGFloat
         public let borderLineColor: Color
-        public let shadowColor: Color?
+        public let shadowColor: Color
         public let shadowOffset: CGFloat
 
         public init(padding: CGSize = CGSize(width: 5, height: 3),
@@ -23,9 +23,8 @@ public struct BorderStyleModifier: ViewModifier {
                     cornerRadius: CGFloat = 7,
                     borderLineWidth: CGFloat = 0,
                     borderLineColor: Color = .clear,
-                    shadowColor: Color? = nil,
-                    shadowOffset: CGFloat = 0
-        ) {
+                    shadowColor: Color = .clear,
+                    shadowOffset: CGFloat = 0) {
             self.padding = padding
             self.fillColor = fillColor
             self.cornerRadius = cornerRadius
@@ -53,21 +52,18 @@ public struct BorderStyleModifier: ViewModifier {
             // 角丸ボーダーライン
             .overlay(
                 RoundedRectangle(cornerRadius: style.cornerRadius)
-                    .stroke(style.borderLineColor, lineWidth: 0)
+                    .stroke(style.borderLineColor, lineWidth: style.borderLineWidth)
             )
         #else
             // Macでは角丸ボーダーラインがうまく表示できない🤔
         #endif
-        
-        if let shadowColor = style.shadowColor {
-            content
+
             // Viewの要素をグループ化
             .compositingGroup()
-            .shadow(color: shadowColor,
+            .shadow(color: style.shadowColor,
                     radius: style.shadowOffset,
                     x: style.shadowOffset,
                     y: style.shadowOffset)
-        }
     }
 }
 
@@ -76,3 +72,4 @@ extension View {
         modifier(BorderStyleModifier(style: style))
     }
 }
+
