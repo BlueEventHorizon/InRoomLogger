@@ -31,7 +31,7 @@ struct LogMonitorMainView: View {
             #endif
 
             Button {
-                //
+                monitor.clearLog()
             } label: {
                 CustomStyleLabel(text: .constant("clear"), imageName: .constant(""), textStyle: .constant(textStyle), borderStyle: .constant(borderStyle))
             }
