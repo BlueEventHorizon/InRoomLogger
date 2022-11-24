@@ -20,7 +20,7 @@ public struct LabelView: View {
             }
         } icon: {
             if !imageName.isEmpty {
-                if #available(iOS 16.0, *) {
+                if #available(iOS 16.0, macOS 13.0,*) {
                     Image(systemName: imageName, variableValue: 1.0)
                 } else {
                     Image(systemName: imageName)

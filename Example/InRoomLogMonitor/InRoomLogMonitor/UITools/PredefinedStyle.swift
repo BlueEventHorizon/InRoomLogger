@@ -16,9 +16,9 @@ public extension TextStyleModifier.TextStyle {
         public var style: TextStyleModifier.TextStyle {
             switch self {
                 case .multiline:
-                    return TextStyleModifier.TextStyle(font: .system(size: 14, weight: .bold), textColor: Color(UIColor.label), lineLimit: 10)
+                return TextStyleModifier.TextStyle(font: .system(size: 14, weight: .bold), textColor: Color.gray, lineLimit: 10)
                 case .default:
-                    return TextStyleModifier.TextStyle(font: .system(size: 14, weight: .bold), textColor: Color(UIColor.label), lineLimit: 1)
+                return TextStyleModifier.TextStyle(font: .system(size: 14, weight: .bold), textColor: Color.gray, lineLimit: 1)
             }
         }
     }
@@ -37,7 +37,7 @@ extension BorderStyleModifier.BorderStyle {
         case smallShadowed
 
         var fillColor: Color {
-            Color(UIColor.secondarySystemBackground)
+            Color.white
         }
 
         public var style: BorderStyleModifier.BorderStyle {
@@ -48,7 +48,7 @@ extension BorderStyleModifier.BorderStyle {
                         fillColor: fillColor,
                         cornerRadius: 10,
                         borderLineWidth: 1,
-                        borderLineColor: Color(UIColor.systemGray3),
+                        borderLineColor: Color.gray,
                         shadowColor: .clear,
                         shadowOffset: 3
                     )
@@ -59,7 +59,7 @@ extension BorderStyleModifier.BorderStyle {
                         fillColor: fillColor,
                         cornerRadius: 10,
                         borderLineWidth: 1,
-                        borderLineColor: Color(UIColor.systemGray3),
+                        borderLineColor: Color.gray,
                         shadowColor: .clear,
                         shadowOffset: 3
                     )
@@ -71,7 +71,7 @@ extension BorderStyleModifier.BorderStyle {
                         cornerRadius: 10,
                         borderLineWidth: 0,
                         borderLineColor: .clear,
-                        shadowColor: Color(UIColor.secondaryLabel),
+                        shadowColor: Color.gray,
                         shadowOffset: 3
                     )
 
@@ -82,7 +82,7 @@ extension BorderStyleModifier.BorderStyle {
                         cornerRadius: 4,
                         borderLineWidth: 0,
                         borderLineColor: .clear,
-                        shadowColor: Color(UIColor.secondaryLabel),
+                        shadowColor: Color.gray,
                         shadowOffset: 2
                     )
             }
