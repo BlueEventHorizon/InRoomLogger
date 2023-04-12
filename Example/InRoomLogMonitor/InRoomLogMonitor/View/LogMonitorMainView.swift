@@ -37,7 +37,7 @@ struct LogMonitorMainView: View {
             }
 
             Toggle(isOn: $flag) {
-                Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
+                Text("最新のログを追尾する")
             }
 
             ScrollViewReader { reader in
