@@ -23,22 +23,24 @@ struct LogMonitorMainView: View {
     var body: some View {
         VStack(alignment: .trailing) {
             #if canImport(UIKit)
-                let textStyle: TextStyleModifier.TextStyle = .init(font: .subheadline, textColor: .white)
+                let textStyle: TextStyleModifier.TextStyle = .init(font: .headline, textColor: .white)
                 let borderStyle: BorderStyleModifier.BorderStyle = .init(fillColor: .accentColor )
             #else
-                let textStyle: TextStyleModifier.TextStyle = .init(font: .subheadline, textColor: .accentColor)
+                let textStyle: TextStyleModifier.TextStyle = .init(font: .headline, textColor: .accentColor)
                 let borderStyle: BorderStyleModifier.BorderStyle = .init()
             #endif
 
             Button {
                 monitor.clearLog()
             } label: {
-                CustomStyleLabel(text: .constant("clear"), imageName: .constant(""), textStyle: .constant(textStyle), borderStyle: .constant(borderStyle))
+                CustomStyleLabel(text: .constant("クリア"), imageName: .constant(""), textStyle: .constant(textStyle), borderStyle: .constant(borderStyle))
             }
+            .padding(.vertical, 5)
 
             Toggle(isOn: $flag) {
-                Text(flag ? "最新のログを追尾する": "最新のログを追尾しない")
+                Text("最新のログを追尾する")
             }
+            .padding(.vertical, 5)
 
             ScrollViewReader { reader in
                 ScrollView {
@@ -85,19 +87,17 @@ struct LogMonitorMainView: View {
 
         switch info.level {
             case .log: return ""
-            case .debug: return "#DEBG"
-            case .info: return "#INFO"
-            case .warning: return "#WARN"
-            case .error: return "#🔥"
-            case .fault: return "#🔥🔥"
+            case .debug: return "🐞"
+            case .info: return "📝"
+            case .warning: return "⚠️"
+            case .error: return "🔥"
+            case .fault: return "🔥🔥🔥"
         }
     }
 
     func generateMessage(with info: LogInformation) -> String {
         let prefix = prefix(with: info)
-        return info.level == .info ?
-            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
-            "\(prefix) [\(info.timestamp())]\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
+        return "\(prefix) [\(info.timestamp())]\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"            
     }
 }
 
