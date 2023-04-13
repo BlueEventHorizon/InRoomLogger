@@ -59,6 +59,7 @@ public class InRoomLogMonitor: ObservableObject {
     private let nearPeer: NearPeer
     private let passcode: String
     private var sendCounter: Int = 0
+    private let prefix: String = ""
 
     public init(passcode: String, dependency: InRoomLogMonitorDependency? = nil) {
         // 一度に接続できるPeerは１つだけ
@@ -92,7 +93,7 @@ public class InRoomLogMonitor: ObservableObject {
                        targetDiscoveryInfo: nil)
 
         nearPeer.onConnected { peer in
-            self.log(LogInformation("[MON] \(peer.displayName) Connected", level: .info, prefix: "$", instance: self))
+            self.log(LogInformation("\(peer.displayName) Connected", level: .info, prefix: "⭐️", instance: self))
             // TODO: 切断された時の処理を追加すること
 
             let peerComponents = peer.displayName.components(separatedBy: ".")
@@ -104,14 +105,14 @@ public class InRoomLogMonitor: ObservableObject {
                 }
                 self.peerNamesSubject.send(peerNames)
 
-                self.log(LogInformation("[MON] peerName = \(displayName), peerIdentifier = \(uuidString)", level: .info, prefix: "$", instance: self))
+                self.log(LogInformation("peerName = \(displayName), peerIdentifier = \(uuidString)", level: .info, prefix: "⭐️", instance: self))
             }
         }
 
         nearPeer.onDisconnect { peer in
             Task {
                 await MainActor.run {
-                    self.log(LogInformation("[MON] \(peer) is disconnected", level: .info, prefix: "$", instance: self))
+                    self.log(LogInformation("\(peer) is disconnected", level: .info, prefix: "⭐️", instance: self))
 
                     let peerComponents = peer.displayName.components(separatedBy: ".")
 
@@ -129,10 +130,8 @@ public class InRoomLogMonitor: ObservableObject {
         nearPeer.onReceived { peer, data in
             Task {
                 await MainActor.run {
-                    // self.log(LogInformation("[MON] Received", prefix: "$", instance: self))
-
                     guard let data = data else {
-                        self.log(LogInformation("[MON] データがありません", level: .warning, prefix: "⚠️"))
+                        self.log(LogInformation("データがありません", level: .warning, prefix: "⭐️】"))
                         return
                     }
 
@@ -142,7 +141,7 @@ public class InRoomLogMonitor: ObservableObject {
                     } else if let text = try? JSONDecoder().decode(String.self, from: data) {
                         self.log(LogInformation(text))
                     } else {
-                        self.log(LogInformation("[MON] decode失敗", level: .error, prefix: "🔥", instance: self))
+                        self.log(LogInformation("decode失敗", level: .error, prefix: "⭐️", instance: self))
                     }
                 }
             }
